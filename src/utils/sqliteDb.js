@@ -18,12 +18,14 @@ export async function initDatabase() {
     console.log('Database initialized');
     db.close();
 }
-export async function insertUser(db, user) {
+export async function insertUser(user) {
+    const db = await  getDbConnection();
     const query = 'INSERT INTO users (name,id_ext) VALUES (?,?)';
     const params = [user.name, user.id_ext];
     return db.executeSql(query, params);
 }
-export async function getUsers(db) {
+export async function getAllUsers() {
+    const db = await  getDbConnection();
     const query = 'SELECT * FROM users';
     const result = await db.executeSql(query);
     const users = result[0].rows.raw();

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { getAllUsers, getDbConnection, getUsers } from '../../utils/sqliteDb';;
+import { getAllUsers, getDbConnection, getUsers } from '../../utils/sqliteDb';
+import { generateExtId } from '../../utils/utils';
 
 const UserList = () => {
     const [list, setList] = useState([]);
@@ -8,6 +9,7 @@ const UserList = () => {
     useEffect(() => {
         loadUsers();
     }, []);
+    
 
     async function loadUsers() {
         try {

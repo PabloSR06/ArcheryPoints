@@ -6,6 +6,9 @@ import { StatusBar, useColorScheme, View } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { initDatabase } from './src/utils/sqliteDb';
 import EditableTable from './src/components/points/Table';
+import PartyTable from './src/components/points/PartyTable';
+import CreateParty from './src/components/menu/CreateParty';
+import Home from './src/components/Home';
 
 
 
@@ -25,8 +28,7 @@ function App(): JSX.Element {
 
   return (
     <View>
-      <StatusBar/>
-      <EditableTable rounds={5} points={3} user={{ id: 1, name: "as" }} />
+      <Home/>
     </View>
   );
 }

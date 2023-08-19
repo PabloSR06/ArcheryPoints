@@ -5,19 +5,20 @@ const Table = ({ rounds, points, user }) => {
   const [tableData, setTableData] = useState(
     Array.from({ length: rounds }, () => Array.from({ length: points }, () => 0))
   );
+  const userData = user;
 
   const handleCellChange = (rowIndex, colIndex, value) => {
     const newData = [...tableData];
     newData[rowIndex][colIndex] = value;
     setTableData(newData);
     console.log(tableData);
-    console.log(user);
+    console.log(userData);
 
   };
 
 
   return (
-    <View>
+    <View> 
       <Text>Table for {user.name}</Text>
       <View style={styles.container}>
       <View style={styles.headerRow}>

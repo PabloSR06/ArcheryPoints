@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import PartyTable from '../points/PartyTable';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Alert, FlatList, TouchableOpacity } from 'react-native';
+import { getAllUsers } from '../../utils/sqliteDb';
 
-const CreateParty = () => {
+const CreateParty = ({ navigation }) => {
   const [rounds, setRounds] = useState('');
   const [points, setPoints] = useState('');
+  const [list, setList] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([]);
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
 
   const handleRoundsChange = (text) => {
     setRounds(text);
@@ -33,14 +39,43 @@ const CreateParty = () => {
     const partyInfo = {
       rounds: parseInt(rounds),
       points: parseInt(points),
+      users: selectedUsers,
     };
     console.log('Saved Party Info:', partyInfo);
+    navigation.navigate('NewPlay', partyInfo);
   };
 
   const clearInputs = () => {
     setRounds('');
     setPoints('');
   };
+
+
+  const toggleUserSelection = (item) => {
+    if (selectedUsers.some((x) => x.id === item.id)) {
+      setSelectedUsers(selectedUsers.filter((x) => x.id !== item.id));
+    } else {
+      setSelectedUsers([...selectedUsers, item]);
+    }
+  };
+
+  const renderUserList = ({ item }) => (
+    <TouchableOpacity onPress={() => toggleUserSelection(item)}>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text>{item.name}</Text>
+        <Text>{selectedUsers.includes(item) ? ' (Selected)' : ''}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  async function loadUsers() {
+    try {
+      var list = await getAllUsers();
+      setList(list);
+    } catch (error) {
+      console.log(`Error loading users ${error}`);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -62,10 +97,19 @@ const CreateParty = () => {
         keyboardType="number-pad"
         inputMode="numeric"
       />
-      
-      <Button title="Start" onPress={handleSave} disabled={!isValidInput()} />
 
-      <Stack.Screen name="OtraPantalla" component={PartyTable} />
+      <View>
+        <Text>List of Names:</Text>
+        <FlatList
+          data={list}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderUserList}
+        />
+        <Text>Selected: {selectedUsers.length}</Text>
+        
+      </View>
+
+      <Button title="Start" onPress={handleSave} disabled={!isValidInput()} />
 
     </View>
   );

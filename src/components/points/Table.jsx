@@ -13,6 +13,7 @@ const Table = ({ rounds, points, user }) => {
     setTableData(newData);
     console.log(tableData);
     console.log(userData);
+    //jsonData.users[userIndex].newField
 
   };
 

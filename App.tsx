@@ -1,18 +1,10 @@
-import UserInput from './src/components/users/UserInput';
-import UserList from './src/components/users/UserList';
 import React, { useEffect } from 'react';
-import type { PropsWithChildren } from 'react';
-import { StatusBar, useColorScheme, View } from 'react-native';
+import { useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { initDatabase } from './src/utils/sqliteDb';
-import EditableTable from './src/components/points/Table';
-import PartyTable from './src/components/points/PartyTable';
-import CreateParty from './src/components/menu/CreateParty';
-import Home from './src/components/Home';
-import MainStack from './src/components/navigation/MainStack';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import UserInteractiveList from './src/components/users/UserInteractiveList';
-
+import MainStack from './src/components/navigation/MainStack';
+import PartyTable from './src/components/points/PartyTable';
 
 
 function App(): JSX.Element {
@@ -31,7 +23,9 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-       <MainStack /> 
+      {/*<FileWriteExample />*/}
+      {/*<MainStack />*/}
+      <PartyTable />
       {/* <UserInteractiveList/>*/}
     </SafeAreaView>
   );

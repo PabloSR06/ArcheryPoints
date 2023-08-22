@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, FlatList, TouchableOpacity } from 'react-native';
 import { getAllUsers } from '../../utils/sqliteDb';
+import RNFS, { writeFile } from 'react-native-fs';
+import { writeJsonToFile } from '../../utils/filesDb';
 
 const CreateParty = ({ navigation }) => {
   const [rounds, setRounds] = useState('');
@@ -32,17 +34,21 @@ const CreateParty = ({ navigation }) => {
   const isValidInput = () => {
     const isValidRounds = Number.isInteger(Number(rounds)) && Number(rounds) > 0;
     const isValidPoints = Number.isInteger(Number(points)) && Number(points) > 0;
-    return isValidRounds && isValidPoints;
+    return isValidRounds && isValidPoints && selectedUsers.length > 0;
   };
 
-  const savePartyInfo = () => {
+  const savePartyInfo = async () => {
     const partyInfo = {
       rounds: parseInt(rounds),
       points: parseInt(points),
       users: selectedUsers,
     };
     console.log('Saved Party Info:', partyInfo);
-    navigation.navigate('NewPlay', partyInfo);
+
+    var fileName=  Date.now();
+    await writeJsonToFile(fileName, partyInfo);
+    navigation.navigate('NewPlay', fileName);
+
   };
 
   const clearInputs = () => {
@@ -106,7 +112,7 @@ const CreateParty = ({ navigation }) => {
           renderItem={renderUserList}
         />
         <Text>Selected: {selectedUsers.length}</Text>
-        
+
       </View>
 
       <Button title="Start" onPress={handleSave} disabled={!isValidInput()} />

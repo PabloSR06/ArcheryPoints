@@ -8,30 +8,16 @@ import UserInput from '../users/UserInput';
 import UserList from '../users/UserList';
 import PartyTable from '../points/PartyTable';
 
-const Stack = createNativeStackNavigator();
-
-const SettingsStack = createNativeStackNavigator();
-
-function SettingsStackScreen() {
-  return (
-    <SettingsStack.Navigator>
-      <SettingsStack.Screen name="Settings" component={CreateParty} />
-      <SettingsStack.Screen name="Settingss" component={UserInput} />
-    </SettingsStack.Navigator>
-  );
-}
-
 const PartyStack = createNativeStackNavigator();
 
 function PartyStackScreen() {
   return (
     <PartyStack.Navigator screenOptions={{ headerShown: false }}>
-      <PartyStack.Screen name="Play" component={CreateParty} />
+      <PartyStack.Screen name="Party" component={CreateParty} />
       <PartyStack.Screen name="NewPlay" component={PartyTable}/>
     </PartyStack.Navigator>
   );
 }
-
 
 const Tab = createBottomTabNavigator();
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
+import { ScrollView, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { initDatabase } from './src/utils/sqliteDb';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,10 +23,12 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {/*<FileWriteExample />*/}
-      {/*<MainStack />*/}
-      <PartyTable />
-      {/* <UserInteractiveList/>*/}
+      <ScrollView>
+        {/*<FileWriteExample />*/}
+        {/*<MainStack />*/}
+        <PartyTable />
+        {/* <UserInteractiveList/>*/}
+      </ScrollView>
     </SafeAreaView>
   );
 }

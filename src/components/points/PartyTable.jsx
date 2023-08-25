@@ -5,7 +5,7 @@ import Table from './Table';
 
 const PartyTable = () => {
     const [forceRender, setForceRender] = useState(0);
-    const fileName = '1692706871245';//route.params;
+    const fileName = '1692960659592';//route.params;
 
     const usersDataRef = useRef([]);
     const roundsDataRef = useRef(0);
@@ -33,7 +33,7 @@ const PartyTable = () => {
         <View>
             <Text>Table for {fileName}</Text>
             {Array.from(usersDataRef.current, (user, index) => (
-                <Table key={index} rounds={roundsDataRef.current} points={pointsDataRef.current} user={user} />
+                <Table key={index} rounds={roundsDataRef.current} points={pointsDataRef.current} user={user} fileName={fileName} />
             ))}
         </View>
     );

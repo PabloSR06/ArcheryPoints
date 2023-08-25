@@ -7,14 +7,13 @@ const Table = ({ rounds, points, user, fileName }) => {
   const [tableData, setTableData] = useState(
     Array.from({ length: rounds }, () => Array.from({ length: points }, () => 0))
   );
-  const userData = user;
-
+  const [userData, setUserData] = useState(user);
   const [totalPoints, setTotal] = useState(0);
+  const [forceRender, setForceRender] = useState(0);
 
   const handleCellChange = (rowIndex, colIndex, value) => {
     const newData = [...tableData];
     newData[rowIndex][colIndex] = value;
-
 
     let total = 0;
     for (let i = 0; i < newData.length; i++) {
@@ -22,7 +21,6 @@ const Table = ({ rounds, points, user, fileName }) => {
         total += newData[i][j];
       }
     }
-
 
     userData.points = tableData;
     userData.totalPoints = total;
@@ -32,26 +30,27 @@ const Table = ({ rounds, points, user, fileName }) => {
     setTableData(newData);
 
     console.log('user', userData);
+    setForceRender(Math.random());
   };
+
+
+
+  useEffect(() => {
+    console.log('log-entry');
+    if (userData.totalPoints === undefined || userData.totalPoints === null) {
+      var newUser = userData;
+      newUser.totalPoints = 0;
+      newUser.points = Array.from({ length: rounds }, () => Array.from({ length: points }, () => 0));
+      setUserData(newUser);
+    }
+    setTotal(userData.totalPoints);
+    setTableData(userData.points);
+    console.log('log-out');
+  }, []);
 
   useEffect(() => {
     syncData();
-  }, [tableData]);
-
-  useEffect(() => {
-
-    if(userData.totalPoints === undefined){
-      setTotal(0);
-      setTableData(Array.from({ length: rounds }, () => Array.from({ length: points }, () => 0)));
-    }else{
-      setTotal(userData.totalPoints);
-      setTableData(userData.points);
-    }
-    
-    
-
-  }, []);
-
+  }, [forceRender]);
 
   async function syncData() {
     try {
@@ -100,6 +99,8 @@ const Table = ({ rounds, points, user, fileName }) => {
         ))}
         <Text>Total: {totalPoints}</Text>
       </View>
+
+      
     </View>
 
   );

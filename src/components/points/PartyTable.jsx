@@ -5,8 +5,10 @@ import Table from './Table';
 
 const PartyTable = () => {
     const [forceRender, setForceRender] = useState(0);
-    const fileName = '1692960659592';//route.params;
+    //const fileName = '1692706871245';//route.params;
+    const fileName = '1692960659592';
 
+    
     const usersDataRef = useRef([]);
     const roundsDataRef = useRef(0);
     const pointsDataRef = useRef(0);

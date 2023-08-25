@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { View, Text, Button, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { listFiles, readFileContent } from '../utils/filesDb';
+import QRCode from 'react-native-qrcode-svg';
+
 
 
 
@@ -21,17 +23,34 @@ const Home = ({ navigation }) => {
     const formattedDate = timestamp.toLocaleDateString();
 
     return (
-      <TouchableOpacity onPress={() => toggleFileSelection(item)}>
+      <TouchableOpacity onPress={() => toggleFileSelection(item)} >
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text>{formattedDate}</Text>
+
         </View>
       </TouchableOpacity>
     );
   };
 
+  async function shareData(item) {
+    try {
+      const content = await readFileContent(item);
+
+      return content;
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
+
   const toggleFileSelection = (item) => {
     item = item.replace('.json', '');
-    navigation.navigate('OldPlay', item);
+    var x = shareData(item);
+    return (<View><QRCode
+      value={JSON.stringify(x)}
+      size={200} // Adjust the size as needed
+    /></View>);
+    //navigation.navigate('OldPlay', item);
   };
 
 
@@ -44,6 +63,7 @@ const Home = ({ navigation }) => {
         keyExtractor={(item) => item}
         renderItem={renderFileList}
       />
+
     </View>
 
   );

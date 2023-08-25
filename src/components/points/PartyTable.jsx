@@ -3,10 +3,10 @@ import { View, Text, FlatList } from 'react-native';
 import { listFiles, readFileContent } from '../../utils/filesDb';
 import Table from './Table';
 
-const PartyTable = () => {
+const PartyTable = ({route}) => {
     const [forceRender, setForceRender] = useState(0);
-    //const fileName = '1692706871245';//route.params;
-    const fileName = '1692960659592';
+    const fileName = route.params;
+    //const fileName = '1692960659592';
 
     
     const usersDataRef = useRef([]);

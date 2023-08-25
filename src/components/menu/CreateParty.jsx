@@ -45,8 +45,8 @@ const CreateParty = ({ navigation }) => {
     };
     console.log('Saved Party Info:', partyInfo);
 
-    var fileName=  Date.now();
-    await writeJsonToFile(fileName, partyInfo);
+    var fileName = Date.now();
+    await writeJsonToFile(fileName.toString(), partyInfo);
     navigation.navigate('NewPlay', fileName);
 
   };

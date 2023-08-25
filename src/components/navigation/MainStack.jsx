@@ -19,13 +19,24 @@ function PartyStackScreen() {
   );
 }
 
+const HomeStack = createNativeStackNavigator();
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
+      <HomeStack.Screen name="FileList" component={Home} />
+      <HomeStack.Screen name="OldPlay" component={PartyTable}/>
+    </HomeStack.Navigator>
+  );
+}
+
 const Tab = createBottomTabNavigator();
 
 const MainStack = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Home" component={HomeStackScreen} />
         <Tab.Screen name="Users" component={UserList} />
         <Tab.Screen name="Play" component={PartyStackScreen} />
       </Tab.Navigator>

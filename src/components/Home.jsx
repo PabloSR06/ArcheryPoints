@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { View, Text, Button} from 'react-native';
-import { listFiles, readFileContent} from '../utils/filesDb';
+import { View, Text, Button, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { listFiles, readFileContent } from '../utils/filesDb';
 
 
 
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
@@ -16,15 +16,34 @@ const Home = ({navigation}) => {
     init();
   }, []);
 
+  const renderFileList = ({ item }) => {
+    const timestamp = new Date(parseInt(item));
+    const formattedDate = timestamp.toLocaleDateString();
+
+    return (
+      <TouchableOpacity onPress={() => toggleFileSelection(item)}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text>{formattedDate}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const toggleFileSelection = (item) => {
+    item = item.replace('.json', '');
+    navigation.navigate('OldPlay', item);
+  };
+
 
   return (
 
     <View>
       <Text>Home</Text>
-      
-      {Array.from(files, (user, index) => (
-                <Text  key={index}>{user}</Text>
-            ))}
+      <FlatList
+        data={files}
+        keyExtractor={(item) => item}
+        renderItem={renderFileList}
+      />
     </View>
 
   );

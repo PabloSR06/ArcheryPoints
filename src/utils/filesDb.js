@@ -34,10 +34,35 @@ export async function writeJsonToFile(fileName, jsonData) {
 export async function readFileContent(fileName) {
     const filePath = path + '/' + fileName + '.json';
     try {
-      const content = await RNFS.readFile(filePath, 'utf8');
-      console.log('File Read');
-      return JSON.parse(content);
+        const content = await RNFS.readFile(filePath, 'utf8');
+        console.log('File Read');
+        return JSON.parse(content);
     } catch (error) {
-      console.log('Error reading file:', error);
+        console.log('Error reading file:', error);
     }
-  };
+};
+
+export async function deleteFolder() {
+    try {
+        await ifDirectoryExists(path);
+        await deleteFilesRecursively(path);
+        await RNFS.unlink(path);
+        console.log('Folder deleted successfully.');
+    } catch (error) {
+        console.log('Error:', error);
+    }
+}
+
+async function deleteFilesRecursively(folderPath) {
+    const files = await RNFS.readdir(folderPath);
+    for (const file of files) {
+        const fullPath = `${folderPath}/${file}`;
+        const fileStats = await RNFS.stat(fullPath);
+        if (fileStats.isDirectory()) {
+            await deleteFilesRecursively(fullPath);
+            await RNFS.unlink(fullPath);
+        } else {
+            await RNFS.unlink(fullPath);
+        }
+    }
+}

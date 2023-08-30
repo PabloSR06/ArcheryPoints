@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { View, Text, Button, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { listFiles, readFileContent } from '../utils/filesDb';
-import QRCode from 'react-native-qrcode-svg';
-
-
-
-
 
 const Home = ({ navigation }) => {
   const [files, setFiles] = useState([]);
@@ -33,24 +28,13 @@ const Home = ({ navigation }) => {
   };
 
   async function shareData(item) {
-    try {
-      const content = await readFileContent(item);
-
-      return content;
-
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+    item = item.replace('.json', '');
+    navigation.navigate('GenerateQr', item);
   }
 
   const toggleFileSelection = (item) => {
     item = item.replace('.json', '');
-    var x = shareData(item);
-    return (<View><QRCode
-      value={JSON.stringify(x)}
-      size={200} // Adjust the size as needed
-    /></View>);
-    //navigation.navigate('OldPlay', item);
+    navigation.navigate('OldPlay', item);
   };
 
 

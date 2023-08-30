@@ -7,6 +7,7 @@ import CreateParty from '../menu/CreateParty';
 import UserInput from '../users/UserInput';
 import UserList from '../users/UserList';
 import PartyTable from '../points/PartyTable';
+import GenerateQr from '../qr/GenerateQr';
 
 const PartyStack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ function HomeStackScreen() {
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="FileList" component={Home} />
       <HomeStack.Screen name="OldPlay" component={PartyTable}/>
+      <HomeStack.Screen name="GenerateQr" component={GenerateQr}/>
     </HomeStack.Navigator>
   );
 }

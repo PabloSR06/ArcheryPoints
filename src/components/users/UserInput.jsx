@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { getDbConnection, insertUser, getUsers } from '../../utils/sqliteDb';
+import Style from '../../utils/styles/style';
 
 const UserInput = () => {
   const [name, setName] = useState('');
@@ -16,7 +17,6 @@ const UserInput = () => {
             id_ext: 0
         };
         console.log('User entered:', parms);
-
         const db = await getDbConnection(); 
         await insertUser(db, parms); 
     } catch (error) {
@@ -25,10 +25,10 @@ const UserInput = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Enter Your Name:</Text>
+    <View style={Style.container}>
+      <Text style={Style.label}>Enter Your Name:</Text>
       <TextInput
-        style={styles.input}
+        style={Style.input}
         onChangeText={handleNameChange}
         value={name}
         placeholder="Your name"
@@ -37,21 +37,5 @@ const UserInput = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    marginBottom: 20,
-  },
-});
 
 export default UserInput;

@@ -24,6 +24,12 @@ export async function insertUser(user) {
     const params = [user.name, user.id_ext];
     return db.executeSql(query, params);
 }
+export async function deleteUser(userId) {
+    const db = await getDbConnection();
+    const query = 'DELETE FROM users WHERE id = ?';
+    const params = [userId];
+    return db.executeSql(query, params);
+}
 export async function getAllUsers() {
     const db = await getDbConnection();
     const query = 'SELECT * FROM users';

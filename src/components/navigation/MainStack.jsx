@@ -9,11 +9,21 @@ import UserList from '../users/UserList';
 import PartyTable from '../points/PartyTable';
 import GenerateQr from '../qr/GenerateQr';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
-//import Icon from 'react-native-vector-icons/Ionicons';
-import { Icon } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/Ionicons';
+import UserEdit from '../users/UserEdit';
+//import { Icon } from 'react-native-elements';
 
+const UserStack = createNativeStackNavigator();
 
-
+function UserStackScreen() {
+  return (
+    <UserStack.Navigator screenOptions={{ headerShown: false }}>
+      <UserStack.Screen name="User" component={UserList} />
+      <UserStack.Screen name="NewUser" component={UserInput} />
+      <UserStack.Screen name="EditUser" component={UserEdit} />
+    </UserStack.Navigator>
+  );
+}
 
 const PartyStack = createNativeStackNavigator();
 
@@ -45,16 +55,23 @@ const MainStack = () => {
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Home"
-        activeColor="#f0edf6"
         screenOptions={{ headerShown: false }}
-        inactiveColor="#3e2465"
-        barStyle={{ backgroundColor: '#694fad' }}
+        inactiveColor="#000"
+        barStyle={{ backgroundColor: '#694fad'}}
       >
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="Users" component={UserList} />
+        <Tab.Screen name="Home" component={HomeStackScreen} options={{
+            tabBarIcon: ({ color }) => (
+              <Icon name="home" color={color} size={26} />
+            ),
+          }}/>
+        <Tab.Screen name="Users" component={UserStackScreen} options={{
+            tabBarIcon: ({ color }) => (
+              <Icon name="people-outline" color={color} size={26} />
+            ),
+          }}/>
         <Tab.Screen name="Play" component={PartyStackScreen} options={{
             tabBarIcon: ({ color }) => (
-              <Icon name="rowing" color={color} size={26} />
+              <Icon name="play" color={color} size={26} />
             ),
           }}/>
       </Tab.Navigator>

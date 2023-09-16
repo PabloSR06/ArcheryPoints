@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { View, Text, Button, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { listFiles, readFileContent } from '../utils/filesDb';
+import { Icon } from 'react-native-elements';
+
 
 const Home = ({ navigation }) => {
   const [files, setFiles] = useState([]);
@@ -21,7 +23,6 @@ const Home = ({ navigation }) => {
       <TouchableOpacity onPress={() => toggleFileSelection(item)} >
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Text>{formattedDate}</Text>
-
         </View>
       </TouchableOpacity>
     );

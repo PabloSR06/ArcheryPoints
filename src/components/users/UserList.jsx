@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native
 import { getAllUsers, getDbConnection, getUsers } from '../../utils/sqliteDb';
 import { generateExtId } from '../../utils/utils';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { UserListStyle } from '../../utils/styles/style';
 
 const UserList = ({ navigation }) => {
     const [list, setList] = useState([]);
@@ -10,7 +11,6 @@ const UserList = ({ navigation }) => {
     useEffect(() => {
         loadUsers();
     }, []);
-
 
     async function loadUsers() {
         try {
@@ -21,32 +21,30 @@ const UserList = ({ navigation }) => {
         }
     }
 
-    const renderUserList = ({ item }) => {       
+    const renderUserList = ({ item }) => {
         return (
             <TouchableOpacity onPress={() => navigation.navigate('EditUser', item)} >
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text>{item.name}</Text>
+                <View style={UserListStyle.userContainer}>
+                    <Text style={UserListStyle.userName}>{item.name}</Text>
                 </View>
             </TouchableOpacity>
         );
     };
 
-
     return (
-        <View>
+        <View style={UserListStyle.container}>
             <TouchableOpacity onPress={() => navigation.navigate('NewUser')} >
                 <Icon name="person-add-outline" size={26} />
             </TouchableOpacity>
-            <Text>List of Names:</Text>
+            <Text style={UserListStyle.listTitle}>List of Names:</Text>
             <FlatList
                 data={list}
                 keyExtractor={(item) => item.id.toString()}
-                // renderItem={({ item }) => <Text>{item.name}</Text>}
                 renderItem={renderUserList}
-
             />
         </View>
     );
 };
+
 
 export default UserList;

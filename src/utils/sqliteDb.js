@@ -30,6 +30,12 @@ export async function deleteUser(userId) {
     const params = [userId];
     return db.executeSql(query, params);
 }
+export async function editUser(user) {
+    const db = await getDbConnection();
+    const query = 'UPDATE users SET name = ? WHERE id = ?';
+    const params = [user.name, user.id];
+    return db.executeSql(query, params);
+}
 export async function getAllUsers() {
     const db = await getDbConnection();
     const query = 'SELECT * FROM users';

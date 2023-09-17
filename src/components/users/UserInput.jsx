@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { getDbConnection, insertUser, getUsers } from '../../utils/sqliteDb';
-import Style from '../../utils/styles/style';
+import { Style } from '../../utils/styles/style';
 
 const UserInput = () => {
   const [name, setName] = useState('');

@@ -12,7 +12,7 @@ const UserEdit = ({ navigation, route }) => {
     const [userInfo, setUserInfo] = useState(route.params);
 
     useEffect(() => {
-        console.log(userInfo);
+        
     }, []);
 
     async function handleSave() {
@@ -21,9 +21,8 @@ const UserEdit = ({ navigation, route }) => {
                 id: id,
                 name: name
             };
-            console.log('User entered:', parms);
             await editUser(parms);
-            navigation.navigate('User');
+            navigation.replace('User');
             
         } catch (error) {
             console.log(`Error saving user ${error}`);
@@ -32,7 +31,7 @@ const UserEdit = ({ navigation, route }) => {
     async function handleDelete() {
         try {
             await deleteUser(userInfo.id);
-            navigation.navigate('User');
+            navigation.replace('User');
         } catch (error) {
             console.log(`Error saving user ${error}`);
         }

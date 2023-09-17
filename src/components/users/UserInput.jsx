@@ -1,34 +1,33 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { getDbConnection, insertUser, getUsers } from '../../utils/sqliteDb';
-import { Style } from '../../utils/styles/style';
+import { UserEditSyle } from '../../utils/styles/style';
 
-const UserInput = () => {
+const UserInput = ({navigation}) => {
   const [name, setName] = useState('');
 
   const handleNameChange = (text) => {
     setName(text);
   };
 
-  async function handleSave( parms) {
+  async function handleSave() {
     try {
         var parms = {
             name: name,
             id_ext: 0
         };
-        console.log('User entered:', parms);
-        const db = await getDbConnection(); 
-        await insertUser(db, parms); 
+        await insertUser(parms); 
+        navigation.replace('User');
     } catch (error) {
         console.log(`Error saving user ${error}`);
     }
   }
 
   return (
-    <View style={Style.container}>
-      <Text style={Style.label}>Enter Your Name:</Text>
+    <View style={UserEditSyle.container}>
+      <Text style={UserEditSyle.label}>Enter Your Name:</Text>
       <TextInput
-        style={Style.input}
+        style={UserEditSyle.input}
         onChangeText={handleNameChange}
         value={name}
         placeholder="Your name"

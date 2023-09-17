@@ -5,12 +5,13 @@ import { generateExtId } from '../../utils/utils';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { UserListStyle } from '../../utils/styles/style';
 
-const UserList = ({ navigation }) => {
+const UserList = ({ navigation , route}) => {
     const [list, setList] = useState([]);
 
     useEffect(() => {
         loadUsers();
     }, []);
+
 
     async function loadUsers() {
         try {

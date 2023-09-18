@@ -25,11 +25,16 @@ const Home = ({ navigation }) => {
 
     const handlePress = () => {
       const itemName = item.replace('.json', '');
-      navigation.navigate('OldPlay', itemName);
+      navigation.replace('OldPlay', itemName);
+    };
+    const handleHold = () => {
+      const itemName = item.replace('.json', '');
+      navigation.navigate('GenerateQr', itemName);
     };
 
+
     return (
-      <TouchableOpacity onPress={handlePress} style={HomeStyle.fileItem}>
+      <TouchableOpacity onLongPress={handleHold} onPress={handlePress} style={HomeStyle.fileItem}>
         <Text>{formattedDate}</Text>
       </TouchableOpacity>
     );

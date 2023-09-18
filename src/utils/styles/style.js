@@ -15,7 +15,6 @@ export const UserEditSyle = {
         marginBottom: 20,
     },
 };
-
 export const HomeStyle = {
     container: {
         flex: 1,
@@ -38,8 +37,6 @@ export const HomeStyle = {
         marginBottom: 8,
     },
 };
-
-
 export const UserListStyle = {
     container: {
         flex: 1,
@@ -62,6 +59,13 @@ export const UserListStyle = {
         fontWeight: 'bold',
         marginBottom: 12,
         color: '#333', // Color de texto oscuro
+    },
+};
+export const QrStyle ={
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 };
 

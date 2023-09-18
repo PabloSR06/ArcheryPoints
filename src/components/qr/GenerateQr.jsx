@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
-import { listFiles, readFileContent } from '../../utils/filesDb';
+import React, { useState, useEffect } from 'react';
+import { View , Dimensions } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
+import { readFileContent } from '../../utils/filesDb';
+import { QrStyle } from '../../utils/styles/style';
 
 
 const GenerateQr = ({ route }) => {
     const [fileName, setFileName] = useState(route.params);
     const [qrData, setQrData] = useState("");
+    const [size, setSize] = useState(Dimensions.get('window').width);
 
     useEffect(() => {
         syncData();
@@ -22,10 +24,10 @@ const GenerateQr = ({ route }) => {
     }
 
     return (
-        <View>
+        <View style={QrStyle.container}>
             <QRCode
                 value={JSON.stringify(qrData)}
-                size={200} // Adjust the size as needed
+                size={size/1.5} // Ajusta el tamaño según sea necesario
             />
         </View>
     );

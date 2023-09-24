@@ -7,23 +7,24 @@ import Color from '../../utils/styles/colors';
 
 const UserEdit = ({ navigation, route }) => {
     const [id, setId] = useState(route.params.id);
-    const [id_ext, setId_ext] = useState(route.params.id_ext);
+    const [extId, setExtId] = useState(route.params.id_ext);
     const [name, setName] = useState(route.params.name);
     const [userInfo, setUserInfo] = useState(route.params);
 
     useEffect(() => {
-        
+
     }, []);
 
     async function handleSave() {
         try {
             var parms = {
                 id: id,
-                name: name
+                name: name,
+                extId: extId
             };
             await editUser(parms);
             navigation.replace('User');
-            
+
         } catch (error) {
             console.log(`Error saving user ${error}`);
         }
@@ -39,6 +40,9 @@ const UserEdit = ({ navigation, route }) => {
     const handleNameChange = (text) => {
         setName(text);
     };
+    const handleExtIdChange = (text) => {
+        setExtId(text);
+    };
 
     return (
         <View style={UserEditSyle.container}>
@@ -48,6 +52,14 @@ const UserEdit = ({ navigation, route }) => {
                 onChangeText={handleNameChange}
                 value={name}
                 placeholder="User name"
+            />
+            <Text style={UserEditSyle.label}>Identificador externo:</Text>
+
+            <TextInput
+                style={UserEditSyle.input}
+                onChangeText={handleExtIdChange}
+                value={extId}
+                placeholder="External Id"
             />
             <Button title="Save" onPress={handleSave} />
             <Button title="Delete" color={Color.red} onPress={handleDelete} />

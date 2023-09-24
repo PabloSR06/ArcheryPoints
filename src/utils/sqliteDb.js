@@ -32,8 +32,8 @@ export async function deleteUser(userId) {
 }
 export async function editUser(user) {
     const db = await getDbConnection();
-    const query = 'UPDATE users SET name = ? WHERE id = ?';
-    const params = [user.name, user.id];
+    const query = 'UPDATE users SET name = ?, id_ext = ? WHERE id = ?';
+    const params = [user.name, user.extId,user.id];
     return db.executeSql(query, params);
 }
 export async function getAllUsers() {

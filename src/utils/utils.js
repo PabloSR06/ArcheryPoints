@@ -1,24 +1,15 @@
-export function generateExtId(name) {
-    // const currentDate = new Date();
-    // const day = currentDate.getDate().toString().padStart(2, '0');
-    // const randomNum = generateRandomNumber().toString().padStart(3, '0');
-
-    console.log(name.replace(/\s+/g, ''));
-    //return `${name.slice(0, 3).toUpperCase()}${year}${month}${day}${randomNum}`;
-
-    var array = [getRandomLeter(), getRandomNumber(), getRandomLeter(), getRandomNumber()]
-    console.log(getRandomLeter());
-    console.log(getRandomNumber());
-    console.log(getRandomLeter());
-    console.log(getRandomNumber());
-
-    var date = new Date();
-    console.log(date.ge);
+export function generateExtId(index) {
+    var array = [];
+    for (var i = 0; i < index; i++) {
+        array.push(getRandomLeter());
+    }
+    return array.join("").toUpperCase();
 }
 function getRandomLeter() {
     var alphabet = "abcdefghijklmnopqrstuvwxyz";
+    var shuffled = alphabet.split('').sort(function(){return 0.5-Math.random()}).join('')
     var index = Math.floor(Math.random() * 26);
-    return alphabet[index];
+    return shuffled[index];
 }
 function getRandomNumber() {
     return Math.floor(Math.random() * 10);

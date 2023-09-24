@@ -25,7 +25,10 @@ const Home = ({ navigation }) => {
 
     const handlePress = () => {
       const itemName = item.replace('.json', '');
-      navigation.replace('OldPlay', itemName);
+      navigation.navigate('Play', {
+        screen: 'Game',
+        params: { itemName },
+      });
     };
     const handleHold = () => {
       const itemName = item.replace('.json', '');

@@ -30,8 +30,8 @@ const PartyStack = createNativeStackNavigator();
 function PartyStackScreen() {
   return (
     <PartyStack.Navigator screenOptions={{ headerShown: false }}>
-      <PartyStack.Screen name="Party" component={CreateParty} />
-      <PartyStack.Screen name="NewPlay" component={PartyTable} />
+      <PartyStack.Screen name="Party" component={CreateParty}/>
+      <PartyStack.Screen name="Game" component={PartyTable}/>
     </PartyStack.Navigator>
   );
 }
@@ -42,7 +42,6 @@ function HomeStackScreen() {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="FileList" component={Home} />
-      <HomeStack.Screen name="OldPlay" component={PartyTable} />
       <HomeStack.Screen name="GenerateQr" component={GenerateQr} />
     </HomeStack.Navigator>
   );

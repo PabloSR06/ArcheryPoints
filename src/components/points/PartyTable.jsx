@@ -5,10 +5,9 @@ import Table from './Table';
 
 const PartyTable = ({route}) => {
     const [forceRender, setForceRender] = useState(0);
-    const fileName = route.params;
+    const fileName = route.params.itemName;
     //const fileName = '1692960659592';
 
-    
     const usersDataRef = useRef([]);
     const roundsDataRef = useRef(0);
     const pointsDataRef = useRef(0);
@@ -27,7 +26,7 @@ const PartyTable = ({route}) => {
         }
     }
 
-    useEffect(() => {
+    useEffect(() => {     
         fetchData();
     }, []);
 
@@ -36,7 +35,7 @@ const PartyTable = ({route}) => {
             <Text>Table for {fileName}</Text>
             {Array.from(usersDataRef.current, (user, index) => (
                 <Table key={index} rounds={roundsDataRef.current} points={pointsDataRef.current} user={user} fileName={fileName} />
-            ))}
+            ))} 
         </View>
     );
 };

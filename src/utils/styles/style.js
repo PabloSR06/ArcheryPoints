@@ -61,7 +61,7 @@ export const UserListStyle = {
         color: '#333', // Color de texto oscuro
     },
 };
-export const QrStyle ={
+export const QrStyle = {
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -85,4 +85,16 @@ export const UserProfile = StyleSheet.create({
         textAlign: 'center',
         margin: 0,
     }
+});
+export const LoaderStyle = StyleSheet.create({
+    container: {
+        height: '100%',
+        margin: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    centered: {
+        position: 'absolute',
+    },
 });

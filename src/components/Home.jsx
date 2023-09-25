@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { listFiles, readFileContent } from '../utils/filesDb';
-import { Icon } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import { HomeStyle } from '../utils/styles/style';
+import { ActivityIndicator } from 'react-native-paper';
 
 const Home = ({ navigation }) => {
   const [files, setFiles] = useState([]);
@@ -42,9 +43,17 @@ const Home = ({ navigation }) => {
       </TouchableOpacity>
     );
   };
+  const [loading, setLoading] = useState(true);
 
   return (
     <View style={HomeStyle.container}>
+      <View >
+
+             
+
+        <Button title="New Game" onPress={() => setLoading(!loading)} />
+      </View>
+
       <Text style={HomeStyle.heading}>Last games</Text>
       <FlatList
         data={files}

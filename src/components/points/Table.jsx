@@ -94,7 +94,7 @@ const Table = ({ rounds, points, user, fileName }) => {
                 keyboardType="numeric"
               />
             ))}
-            <Text style={styles.inputCell}>4</Text>
+            <Text style={styles.inputCell}>{rowData.reduce((acc, val) => acc + val, 0)}</Text>
           </View>
         ))}
         <Text>Total: {totalPoints}</Text>

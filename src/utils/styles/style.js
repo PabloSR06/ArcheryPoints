@@ -69,3 +69,20 @@ export const QrStyle ={
     },
 };
 
+export const UserProfile = StyleSheet.create({
+    container: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '10vh',
+        backgroundColor: '#cdc5c5',
+        borderRadius: 10,
+    },
+    text: {
+        color: '#fff',
+        fontSize: 35,
+        textAlign: 'center',
+        margin: 0,
+    }
+});

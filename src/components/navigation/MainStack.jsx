@@ -11,6 +11,8 @@ import GenerateQr from '../qr/GenerateQr';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import UserEdit from '../users/UserEdit';
+import ProfileInput from '../users/profile/ProfileInput';
+import ProfileEdit from '../users/profile/ProfileEdit';
 //import { Icon } from 'react-native-elements';
 
 const UserStack = createNativeStackNavigator();
@@ -21,6 +23,8 @@ function UserStackScreen() {
       <UserStack.Screen name="User" component={UserList} />
       <UserStack.Screen name="NewUser" component={UserInput} />
       <UserStack.Screen name="EditUser" component={UserEdit} />
+      <UserStack.Screen name="ProfileInput" component={ProfileInput} />
+      <UserStack.Screen name="ProfileEdit" component={ProfileEdit} />
     </UserStack.Navigator>
   );
 }

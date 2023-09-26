@@ -45,10 +45,12 @@ const CreateParty = ({ navigation }) => {
     };
     console.log('Saved Party Info:', partyInfo);
 
-    var fileName = Date.now();
-    await writeJsonToFile(fileName.toString(), partyInfo);
-    navigation.navigate('Game', fileName);
-
+    var itemName = Date.now();
+    await writeJsonToFile(itemName.toString(), partyInfo);    
+    navigation.navigate('Play', {
+      screen: 'Game',
+      params: { itemName },
+    });
   };
 
   const clearInputs = () => {

@@ -52,7 +52,15 @@ export async function deleteFolder() {
         console.log('Error:', error);
     }
 }
-
+export async function deleteFile(filePath) {
+    try {
+        const fullPath = `${path}/${filePath}`;
+        await RNFS.unlink(fullPath);
+        console.log('File deleted successfully.');
+    } catch (error) {
+        console.log('Error in deleteFile:', error);
+    }
+}
 async function deleteFilesRecursively(folderPath) {
     const files = await RNFS.readdir(folderPath);
     for (const file of files) {

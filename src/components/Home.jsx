@@ -1,123 +1,87 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
-import { listFiles, readFileContent } from '../utils/filesDb';
+import { deleteFile, listFiles, readFileContent } from '../utils/filesDb';
 import { Button, Icon, ListItem } from 'react-native-elements';
-import { HomeStyle } from '../utils/styles/style';
+import FileList from './FileList';
+import { HomeStyle, LoaderStyle } from '../utils/styles/style';
 import { ActivityIndicator } from 'react-native-paper';
-import Menu, {
-  MenuProvider,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-} from 'react-native-popup-menu';
 
 const Home = ({ navigation }) => {
   const [files, setFiles] = useState([]);
+  const [fileChanged, setFileChanged] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function init() {
       try {
+        setLoading(true);
         const list = await listFiles();
         setFiles(list);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching files:', error);
       }
     }
     init();
-  }, []);
-
-  const onTriggerPress = (index) => {
-    console.log('onTriggerPress');
-  }
-
-  const onBackdropPress = (index) => {
-    console.log('onBackdropPress');
-  }
-
-  const onOptionSelect = (value, index) => {
-    alert(`Selected number: ${value}`);
-    const list = [...this.state.list];
-    list[index].isOpen = false;
-    this.setState({ list });
-  }
-
-  const renderItem = ({ item, index }) => (
-    <View  >
-      <Text>sad</Text>
-      <ListItem
-        
-        onPress={() => console.log('onPress')}
-        key={index}
-        iconStyle={{ color: 'red' }}
-        title={
-          <View>
-            <Text style={{ fontWeight: 'bold' }}>adfgadfgadfgadfg</Text>
-            <Text style={{ fontWeight: 'bold' }}>adfgadfgadfgadfg</Text>
-            <Text style={{ fontWeight: 'bold' }}>adfgadfgadfgadfg</Text>
-            <Text style={{ fontWeight: 'bold' }}>adfgadfgadfgadfg</Text>
-            <Text style={{ fontWeight: 'bold' }}>adfgadfgadfgadfg</Text>
-            <Text style={{ fontWeight: 'bold' }}>adfgadfgadfgadfg</Text>
-            <Text style={{ fontWeight: 'bold' }}>adfgadfgadfgadfg</Text>
-            
-          </View>
-        }
-        subtitle={item}
+  }, [fileChanged]);
 
 
-      />
-    </View>
-  );
-  const getMenuView = (index, isOpen) => {
+  const renderFileItem = ({ item }) => {
+    const timestamp = new Date(parseInt(item));
+    const formattedDate = timestamp.toLocaleDateString();
+    const itemName = item.replace('.json', '');
+
+    const handlePlay = () => {
+      navigation.navigate('Play', {
+        screen: 'Game',
+        params: { itemName },
+      });
+    };
+    const handleShare = () => {
+      navigation.navigate('GenerateQr', itemName);
+    };
+    const handleDelete = () => {
+      deleteFile(item);
+      setFileChanged(!fileChanged);
+    };
+
     return (
-      <MenuProvider style={{ flexDirection: 'column', padding: 30 }}>
-        <Menu opened={isOpen}>
-          <MenuTrigger
-            onBackdropPress={() => onBackdropPress(index)}
-            onSelect={value => onOptionSelect(value, index)}
-          >
-            <Icon
-              onPress={() => onTriggerPress(index)}
-              type="material"
-              color="red"
-              name="more-vert"
-            />
-          </MenuTrigger>
-          <MenuOptions>
-            <MenuOption value={1} text="One" />
-            <MenuOption value={2}>
-              <Text style={{ color: 'red' }}>Two</Text>
-            </MenuOption>
-            <MenuOption value={3} disabled={true} text="Three" />
-          </MenuOptions>
-        </Menu>
-      </MenuProvider>
+      <FileList item={formattedDate} onHandleDelete={handleDelete} onHandlePlay={handlePlay} onHandleShare={handleShare} />
     );
-  }
+  };
 
 
-  return (
-    <View>
-      <View>
+
+  const renderScreen = () => {
+    return (    
         <FlatList
           showsVerticalScrollIndicator={false}
           data={files}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={renderItem}
+          renderItem={renderFileItem}
         />
+    );
+  };
+  const renderLoader = () => {
+    return (
+      <View style={LoaderStyle.container}>
+        <View style={LoaderStyle.centered}>
+          <ActivityIndicator size="large" animating={loading} />
+        </View>
       </View>
-    </View>
+    );
+  };
 
+  return (
+    
+    <View style={HomeStyle.container}>
+      <Text style={HomeStyle.heading}>Last games</Text>
+      {loading ? renderLoader() : renderScreen()}
+    </View>
   );
 };
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 8,
-  },
-});
 
 
 
